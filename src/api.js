@@ -4,6 +4,7 @@ const loginController = require('./controllers/login');
 const createUser = require('./controllers/createUser');
 const getUser = require('./controllers/getUser');
 const getUserById = require('./controllers/getUserById');
+const createCategory = require('./controllers/createCategory');
 
 const errorMiddleware = require('./middlewares/error');
 const authentication = require('./middlewares/auth');
@@ -17,6 +18,7 @@ app.post('/login', loginController);
 app.post('/user', createUser);
 app.get('/user', authentication, getUser);
 app.get('/user/:id', authentication, getUserById);
+app.post('/categories', authentication, createCategory);
 
 app.use(errorMiddleware);
 
