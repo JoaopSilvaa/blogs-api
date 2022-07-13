@@ -8,6 +8,7 @@ module.exports = (err, _req, res, _next) => {
       unprocessable: 422,
       badRequest: 400,
       unauthorized: 401,
+      conflict: 409,
     };
     const status = statusByErrorCode[err.code] || 500;
     res.status(status).json({ message: err.message });
