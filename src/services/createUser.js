@@ -50,9 +50,9 @@ const validatePassword = (password) => {
     }
 };
 
-const doToken = (display, email, image) => {
+const doToken = (displayName, email, image) => {
     const jwtConfig = { algorithm: 'HS256' };
-    const token = jwt.sign({ display, email, image }, JWT_SECRET, jwtConfig);
+    const token = jwt.sign({ displayName, email, image }, JWT_SECRET, jwtConfig);
     return token;
 };
 
@@ -66,8 +66,7 @@ const create = async ({ displayName, email, password, image }) => {
     if (validEmail) return validEmail;
     if (validPass) return validPass;
     if (emailExist) return emailExist;
-
-    console.log(validName, validEmail, emailExist, validPass);
+    
     await User.create({ displayName, email, password, image });
 
     const token = doToken(displayName, email, image);

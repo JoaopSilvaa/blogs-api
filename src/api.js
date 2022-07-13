@@ -2,7 +2,10 @@ const express = require('express');
 // ...
 const loginController = require('./controllers/login');
 const createUser = require('./controllers/createUser');
+const getUser = require('./controllers/getUser');
+
 const errorMiddleware = require('./middlewares/error');
+const authentication = require('./middlewares/auth');
 
 const app = express();
 
@@ -11,6 +14,7 @@ app.use(express.json());
 
 app.post('/login', loginController);
 app.post('/user', createUser);
+app.get('/user', authentication, getUser);
 
 app.use(errorMiddleware);
 
