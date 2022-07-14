@@ -6,6 +6,8 @@ const getUser = require('./controllers/getUser');
 const getUserById = require('./controllers/getUserById');
 const createCategory = require('./controllers/createCategory');
 const getCategory = require('./controllers/getCategory');
+const createPost = require('./controllers/createPost');
+const getPosts = require('./controllers/getPosts');
 
 const errorMiddleware = require('./middlewares/error');
 const authentication = require('./middlewares/auth');
@@ -21,6 +23,8 @@ app.get('/user', authentication, getUser);
 app.get('/user/:id', authentication, getUserById);
 app.post('/categories', authentication, createCategory);
 app.get('/categories', authentication, getCategory);
+app.post('/post', authentication, createPost);
+app.get('/post', authentication, getPosts);
 
 app.use(errorMiddleware);
 

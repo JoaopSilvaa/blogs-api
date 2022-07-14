@@ -19,7 +19,7 @@ module.exports = async (req, res, next) => {
         if (!user) {
             return res.status(401).json({ message: 'Expired or invalid token' });
         }
-
+        req.user = email;
         next();
     } catch (err) {
         return res.status(401).json({ message: 'Expired or invalid token' });
