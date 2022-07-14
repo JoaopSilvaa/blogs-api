@@ -1,25 +1,24 @@
-const { PostCategory, BlogPost, Category } = require('../database/models');
+const { PostCategory, BlogPost, Category, User } = require('../database/models');
 
 const getPostById = async (id) => {
-    const user = await PostCategory.findOne({ 
-        where: { id },
+    const post = await PostCategory.findOne({ 
+        where: { postId: id },
         include: [
-            { model: BlogPost, as: 'blogPost', through: { attributes: [] } },
-            { model: BlogPost, as: 'blogPost', through: { attributes: [] } },
-        ],  
+            { model: BlogPost, 
+                as: 'blogPost',
+                through: { attributes: [],
+                include: [{ model: User, as: 'user', attributes: { exclude: 'password' } }] } },
+            { model: Category, as: 'categories', through: { attributes: [] } },
+        ],
     });
-
-    if (!user) {
+    if (!post) {
         return {
-            error: {
-                code: 'notFound',
-                message: 'User does not exist',
-            },
+            error: { code: 'notFound', message: 'Post does not exist' },
         };
     }
-    return user;
+    return post;
 };
 
 module.exports = {
-    getUserById,
+    getPostById,
 };
