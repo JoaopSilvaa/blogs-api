@@ -5,28 +5,22 @@ const verify = async (email) => {
     return user.id;
 };
 
-const update = async ({ id, title, content, userId }) => {
+const remove = async ({ id, userId }) => {
     const post = await BlogPost.findByPk(id);
     if (!post) {
         return { error: { code: 'notFound', message: 'Post does not exist' } };
     }
-
     if (userId !== post.userId) {
         return {
             error: { code: 'unauthorized', message: 'Unauthorized user' },
         };
     }
+    await BlogPost.destroy({ where: { id } }); 
     
-    if (!title || !content) {
-        return {
-            error: { code: 'badRequest', message: 'Some required fields are missing' },
-        };
-    }
-    const postUpdated = await BlogPost.upsert({ title, content });
-    return postUpdated;     
+    return true;
 };
 
 module.exports = {
-    update,
+    remove,
     verify,
 };

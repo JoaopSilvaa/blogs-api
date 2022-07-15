@@ -1,4 +1,5 @@
 const { update, verify } = require('../services/updatePost');
+const { getPostById } = require('../services/getPostById');
 
 module.exports = async (req, res, next) => {
     const { title, content } = req.body;
@@ -9,5 +10,6 @@ module.exports = async (req, res, next) => {
 
     if (post.error) return next(post.error);
 
-    return res.status(201).json(post);
+    const postUpdated = await getPostById(id);
+    return res.status(201).json(postUpdated);
 };
