@@ -12,6 +12,7 @@ const getPostById = require('./controllers/getPostById');
 const updatePost = require('./controllers/updatePost');
 const deletePost = require('./controllers/deletePostById');
 const deleteUser = require('./controllers/deleteUser');
+const findPostByTerm = require('./controllers/findPostByTerm');
 
 const errorMiddleware = require('./middlewares/error');
 const authentication = require('./middlewares/auth');
@@ -24,6 +25,7 @@ app.use(express.json());
 app.post('/login', loginController);
 app.post('/user', createUser);
 app.get('/user', authentication, getUser);
+app.get('/post/search', authentication, findPostByTerm);
 app.get('/user/:id', authentication, getUserById);
 app.post('/categories', authentication, createCategory);
 app.get('/categories', authentication, getCategory);
