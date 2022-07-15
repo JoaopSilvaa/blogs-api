@@ -22,7 +22,7 @@ const update = async ({ id, title, content, userId }) => {
             error: { code: 'badRequest', message: 'Some required fields are missing' },
         };
     }
-    const postUpdated = await BlogPost.upsert({ title, content });
+    const postUpdated = await BlogPost.upsert({ id, title, content, userId });
     return postUpdated;     
 };
 

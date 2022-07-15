@@ -11,5 +11,5 @@ module.exports = async (req, res, next) => {
     if (post.error) return next(post.error);
 
     const postUpdated = await getPostById(id);
-    return res.status(201).json(postUpdated);
+    return res.status(200).json(postUpdated);
 };
